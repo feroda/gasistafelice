@@ -101,11 +101,13 @@ var app = angular.module('ngGF',
         this.set_ordered_products_from_basket(this.gm.basket);
         this.set_ordered_products_from_basket(this.gm.basket_to_be_delivered);
 
-        this.get_ordered_products = function () {
+        this.get_ordered_products = function (can_update) {
             //TODO REVIEW offline coding
             var ordered_products = [];
             angular.forEach(THAT.ordered_products_d, function(ordered_product, index) {
-                ordered_products.push(ordered_product);
+                if (can_update === undefined || can_update == ordered_product.can_update) {
+                    ordered_products.push(ordered_product);
+                }
             });
             if (ordered_products.length === 0) {
                 THAT.basket_empty = true;
@@ -113,6 +115,21 @@ var app = angular.module('ngGF',
                 THAT.basket_empty = false;
             }
             return ordered_products;
+        };
+
+        this.get_baskets = function() {
+            return [
+                { 
+                    'title' : 'Il tuo paniere', 
+                    'products' : THAT.get_ordered_products(true),
+                    'order' : 1
+                }
+                /*{ 
+                    'title' : 'Il tuo paniere da consegnare', 
+                    'products' : THAT.get_ordered_products(false), 
+                    'order' : 2
+                }*/
+            ];
         };
 
         this.set_order_catalog = function(open_order) {

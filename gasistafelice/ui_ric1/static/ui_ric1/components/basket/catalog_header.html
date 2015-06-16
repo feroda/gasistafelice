@@ -1,0 +1,25 @@
+<tr>  
+    <!-- <th>ID</th> -->
+    <th scope="col" ng-click="orderByField='order_id'; basket.reverseSort = !basket.reverseSort">Ordine
+      <span ng-show="orderByField == 'order_id'" class="listorder">
+        <span ng-show="!basket.reverseSort"><i class="fa fa-sort-desc"></i></span>
+        <span ng-show="basket.reverseSort"><i class="fa fa-sort-asc"></i></span>
+      </span>
+    </th>  
+    <th scope="col" ng-click="orderByField='supplier'; basket.reverseSort = !basket.reverseSort">Fornitore
+      <span ng-show="orderByField == 'supplier'" class="listorder">
+        <span ng-show="!basket.reverseSort"><i class="fa fa-sort-desc"></i></span>
+        <span ng-show="basket.reverseSort"><i class="fa fa-sort-asc"></i></span>
+    </span>
+    </th>  
+    <th scope="col" ng-click="orderByField='name'; basket.reverseSort = !basket.reverseSort">Prodotto
+      <span ng-show="orderByField == 'name'" class="listorder">
+        <span ng-show="!basket.reverseSort"><i class="fa fa-sort-desc"></i></span>
+        <span ng-show="basket.reverseSort"><i class="fa fa-sort-asc"></i></span>
+    </span>
+    </th>  
+    <th>Prezzo (€)</th>  
+    <th>Quantit&agrave;</th>  
+    <th>Totale</th>  
+    <th style="text-align:center">Cancella</th>   
+</tr>  
