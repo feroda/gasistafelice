@@ -16,11 +16,11 @@ i corrispettivi nomi inglesi e collegamenti ai modelli (software) che realizzano
 
 Nella descrizione dei processi relativi alla gestione operativa di un GAS entrano in gioco diverse entità e concetti: per consentire una descrizione efficace, sintetica e non ambigua di tali processi, è necessario definire una terminologia condivisa e utilizzarla sistematicamente, sia nei documenti tecnici che nel corso delle discussioni sul contenuto di tali documenti.  Per organizzare meglio il vocabolario, si sono suddivisi i termini in macro-aree, anche se in alcuni casi un termine potrebbe appartenere a più macro-aree.
 
-## Generali
+## Area generale
 
 ### Sistema
 
-È Gasista Felice, per gli amici GF.
+È Gasista Felice, per gli amici GF ;)
 
 ### Installazione
 
@@ -29,6 +29,8 @@ Nella descrizione dei processi relativi alla gestione operativa di un GAS entran
 ### Utente
 
 Indica un'utenza del [Installazione](#installazione).
+
+Ad essa vengono assegnati i [Ruoli](#ruoli) e conseguentemente i [Permessi](#permessi).
 
 ### Risorsa
 
@@ -62,9 +64,15 @@ Una risorsa è **una qualunque entità del sistema che risponde alle seguenti ca
 
 Ref: [DES](https://github.com/befair/gasistafelice/blob/master-dj17/gasistafelice/des/models.py#L35 "Il modello DES")
 
-Un DES è un [Distretto di Economia Solidale](http://web.resmarche.it/resmarche/articles/art_1978.html).
+Un DES è un [Distretto di Economia Solidale](http://web.resmarche.it/resmarche/articles/art_1978.html), ossia un territorio dove si pratica l'economia solidale e si esprimono relazioni solidali in tutti gli ambiti della vita quotidiana, o meglio ... in tutti gli ambiti in cui si riesce ;)
+
+La caratteristica del DES è di essere strettamente legato al TERRITORIO che per ragioni culturali o geografiche
+facilita l'incontro e lo scambio di beni o servizi tra gli attori presenti.
+
 Ogni installazione di Gasista Felice può servire un solo DES.
 Altrimenti detto, tutte le entità contenute in una installazione di Gasista Felice sono incluse in uno ed un solo DES.
+
+Gasista Felice aiuta la realizzazione degli scambi economici in un DES e il monitoraggio del flusso economico solidale da essi prodotto.
 
 ### Persona
 
@@ -104,7 +112,7 @@ Attualmente i tipi disponibili sono:
 * Fax
 * E-mail
 
-## Fornitori
+## Area fornitori
 
 ### Fornitore
 
@@ -112,7 +120,7 @@ Ref: [Supplier](https://github.com/befair/gasistafelice/blob/master-dj17/gasista
 
 Soggetto che espone prodotti al [DES](#des).
 Può entrare in relazione con uno o più [GAS](#gas) tramite un [Patto di solidarietà](#patto-di-solidarietà) (per ogni GAS).
-Se un Fornitore ha un PattoDiSolidarietà con un GAS si dice che "il fornitore serve il GAS".
+Se un Fornitore ha un Patto di solidarietà con un GAS si dice che "il fornitore serve il GAS".
 
 È caratterizzato da:
 
@@ -175,83 +183,113 @@ Ref: NON ha un modello corrispondente nel sistema, è solo un modo di identifica
 
 Definisce l'offerta economica base che un Fornitore, in un dato istante, espone al DES; è una lista di [Stock](#stock).
 
----- FERO si ferma qui per ora ----
+Operazioni di modifica sul Listino fornitore, si ripercuotono a cascata sul [Listino del patto](#listino del patto) e [Listino degli ordini](#listino-di-ordine);
 
-## GAS ##
-### GAS ###
-Gruppo di Acquisto Solidale. È caratterizzato dai seguenti attributi
-* [[#ReferenteInformatico|ReferentiInformatici]]
-* [[#Contabile|Contabili]]
-### Retina ###
-Aggregato di GAS operanti in un territorio limitrofo.
-### Gasista ###
-Membro di un GAS. È caratterizzato dai seguenti attributi:
-* [[#Persona|Persona]] (un Gasista può essere membro di più GAS)
-* GAS di appartenenza
-* lista dei Ruoli (incarichi) che ha dato disponibilità a ricoprire
+## Area GAS
 
-A sua volta, questa entità può essere declinata nelle seguenti specializzazioni:
-* [[#ReferenteFornitoreGAS|ReferenteFornitoreGAS]]
-* [[#ReferenteFornitoreRetina|ReferenteFornitoreRetina]]
-* [[#ReferenteOrdineGAS|ReferenteOrdineGAS]]
-* [[#ReferenteOrdineRetina|ReferenteOrdineRetina]]
-* [[#ReferenteConsegna|ReferenteConsegna]]
-* [[#Turnista|Turnista]]
-* [[#Contabile|Contabile]]
-* [[#ReferenteInformatico|ReferenteInformatico]]
-### ReferenteFornitoreGAS ###
-Funge da interfaccia tra un GAS e uno specifico Fornitore ed è responsabile del relativo !PattoDiSolidarietà
-### !ReferenteFornitoreRetina ###
-Funge da interfaccia tra una Retina di GAS ed un Fornitore in comune a tutti i GAS membri della Retina.
-### ReferenteOrdineGAS ###
-Gestisce un Ordine multi-Fornitore a livello di GAS ; nel caso di un Ordine mono-Fornitore (ovvero un [[#OrdineFornitore|OrdineFornitore]]), il ReferenteOrdineGAS coincide con il corrispondente ReferenteFornitoreGAS.
-### !ReferenteOrdineRetina ###
-Gestisce un Ordine multi-Fornitore a livello di Retina; nel caso di un Ordine mono-Fornitore (ovvero un [[#OrdineFornitore|OrdineFornitore]]), il !ReferenteOrdineRetina coincide con il corrispondente !ReferenteFornitoreRetina.
-### !ReferenteConsegna ###
-Un Gasista che si prende in carico gli aspetti logistici relativi ad un dato [[#AppuntamentoDiConsegna|AppuntamentoDiConsegna]], che possono comprendere:
-* verifica della merce effettivamente consegnata dal/i Fornitore/i
-* archiviazione dei DDT
-* pagamento delle fatture
-* trasporto della merce al [[#PuntoDiRitiro|PuntoDiRitiro]] (se diverso dal [[#PuntoDiConsegna|PuntoDiConsegna]])
-* ..
-### Turnista ###
-Un Gasista che si prende in carico gli aspetti logistici relativi ad un dato [[#AppuntamentoDiRitiro|AppuntamentoDiRitiro]], che possono comprendere:
-* gestione della corretta distribuzione della merce nel [[#PuntoDiRitiro|PuntoDiRitiro]]
-* riscossione dei pagamenti da parte dei Gasisti
-* rendicontazione dei Prodotti ritirati e di quelli non ritirati
-* aggiornamento del [[#Magazzino|Magazzino]]
-* ..
-### Contabile ###
-Gestisce i [[#ContoGasista|Conti dei Gasisti]], le transazioni economiche con i Fornitori, e il [[#ContoGAS|conto del GAS]].
-### !ReferenteInformatico ###
-È un Gasista che si occupa dell'amministrazione informatica del [[#Sistema|Sistema]], limitatamente agli aspetti relativi al GAS di appartenenza.
-### !PattoDiSolidarietà ###
-È l'insieme delle condizioni di fornitura, economiche e non, condivise e sottoscritte da un [[#GAS|GAS]] e un [[#Fornitore|Fornitore]]. (È in sostanza un configuratore delle impostazioni di default tra GAS e Fornitore). Comprende:
-* il Documento
-* il [[#CatalogoFornitoreGAS|CatalogoFornitoreGAS]]
-* [opzionale] l'importo minimo di un [[#OrdineFornitore|OrdineFornitore]]
-* le spese di consegna per ogni [[#OrdineFornitore|OrdineFornitore]]
-* una modifica %, in positivo o negativo, sul prezzo base di ogni Prodotto in base agli accordi presi (che tenga conto, ad es., di fattori logistici e/o del volume di consumi del GAS)
-* quanti giorni prima della [[#Consegna|Consegna]] bisogna chiudere l'[[#OrdineFornitore|OrdineFornitore]]
-* i Gasisti che fungono da [[#ReferenteFornitoreGAS|ReferentiFornitoreGAS]] per il Fornitore
+### GAS
 
-TODO:
-* cambiare il nome
-* valutare la possibilità di definire esenzioni di consegna per volumi di acquisto
-* valutare attentamente le possibilità e le problematiche conseguenti dalla modifica in % rispetto all'equità del prezzo
+Ref: [GAS](https://github.com/befair/gasistafelice/blob/master-dj17/gasistafelice/gf/gas/models/base.py#L64 "Il modello GAS")
 
-### CatalogoFornitoreGAS ###
-L'insieme dei Prodotti che un GAS è interessato ad acquistare da un determinato Fornitore; è, per definizione, un sottoinsieme del [[#CatalogoFornitore|CatalogoFornitore]] del Fornitore in questione.
-### ListinoFornitoreGAS ###
-Definisce l'offerta economica di un Fornitore, in un dato istante, verso uno specifico GAS; è una lista di [[#StockFornitoreGAS|StockFornitoreGAS]].
-### StockFornitoreGAS ###
-Descrive le specifiche modalità di fornitura di un [[#Prodotto|Prodotto]] da parte di un [[#Fornitore|Fornitore]] ad un determinato GAS.
-Uno StockFornitoreGAS è sostanzialmente uno [[#StockFornitore|StockFornitore]] modificato in base al [[#PattoDiSolidarietà|PattoDiSolidarietà]] tra il GAS e il Fornitore; è caratterizzato dai seguenti attributi:
-* [[#StockFornitore|StockFornitore]] (si intende che il Prodotto associato sia presente nel [[#CatalogoFornitoreGAS|CatalogoFornitoreGAS]])
-* prezzo (quello praticato dal Fornitore al GAS; comprende le eventuali modifiche apportate al prezzo base dal [[#PattoDiSolidarietà|PattoDiSolidarietà]])
-* stato di abilitazione (`ABILITATO`/`NON_ABILITATO`)
-* [opzionale] quantità minima ordinabile dal Gasista (può essere impostata dal  [[#ReferenteFornitoreGAS|ReferenteFornitoreGAS]] ad un sottomultiplo di quella stabilita dal Fornitore,  per venire incontro alle esigenze dei Gasisti)
-* [opzionale] step di incremento ordinabile dal Gasista (può essere impostato dal  [[#ReferenteFornitoreGAS|ReferenteFornitoreGAS]] ad un sottomultiplo di quello stabilito dal Fornitore,  per venire incontro alle esigenze dei Gasisti)
+È la [Risorsa](#risorsa) di GF che rappresenta un [Gruppo di Acquisto Solidale](http://retegas.org/upload/dl/doc/GASDocumentoBase.PDF "La carta nazionale dei GAS").
+
+È caratterizzato dai seguenti attributi
+
+* Informazioni anagrafiche:
+  * Nome;
+  * Codice di 3 lettere identificativo nel [DES](#des);
+  * Sede -> [Luogo](#luogo)
+  * Descrizione;
+  * Quota associativa;
+  * Data di fondazione;
+  * Codice fiscale o partita IVA se presenti;
+  * Sito web;
+* Elenco dei [Patti di solidarietà](#patto-di-solidarietà);
+* Elenco dei [Referenti informatici](#TODO-TODOC);
+* Elenco dei [Referenti fornitore](#TODO-TODOC);
+* Elenco dei [Referenti economici](#TODO-TODOC);
+* Elenco dei [Gasisti](#gasista);
+* Elenco degli attivisti: le [Persone](#persona) che partecipano (non hanno un ruolo particolare in GF);
+
+Esso è anche un [soggetto economico](#soggetto-economico), quindi ha una serie di conti associati:
+
+* uno generale;
+* uno per ogni gasista;
+* uno per ogni patto di solidarietà;
+
+### Retina
+
+Ref: non è un modello nel software, è identificato nella configurazione di un GAS, dai GAS che possono ordinare con il GAS che si sta configurando.
+
+Aggregato di GAS operanti in un territorio limitrofo, che per comodità possono avviare ordini InterGAS.
+
+### Gasista
+
+Ref: [GASMember](https://github.com/befair/gasistafelice/blob/master-dj17/gasistafelice/gf/gas/models/base.py#L839 "Il modello GASMember")
+
+Il gasista è una risorsa del sistema.
+Esso è l'associazione di una [Persona](#persona) ad un [GAS](#gas). Le persone che possono essere associate ai GAS sono solo le persone che a loro volta hanno associate un [Utente](#utente).
+
+Oltre agli attributi "persona" e "gas" integra:
+
+* Gli attributi necessari per la sospensione definitiva (cancellazione) o temporanea (ad es: vacanze);
+* L'indicazione di quando è stata pagata la quota associativa;
+* L'identificativo nel GAS, ossia il numero della tessera nel GAS se esiste;
+* lista dei Ruoli (incarichi) che ha dato disponibilità a ricoprire (attualmente non utilizzato, non utile);
+
+### Patto di solidarietà
+
+Ref: [GASSupplierSolidalPact](https://github.com/befair/gasistafelice/blob/master-dj17/gasistafelice/gf/gas/models/base.py#L1697 "Il modello GASSupplierSolidalPact")
+
+**TODO: REFACTORING in Pact**
+
+È il rapporto reciproco tra un [GAS](#gas) e un [Fornitore](#fornitore), e una [risorsa](#risorsa) fondamentale del sistema, infatti ogni ordine è aperto relativamente ad un Patto di solidarietà.
+
+Il suo compito base è di mettere in relazione le risorse GAS e Fornitore, ma è progettato anche per
+contenere l'insieme delle condizioni di fornitura, economiche e non, condivise e sottoscritte.
+In questo modo funge da configuratore delle impostazioni di default per gli ordini tra quel GAS e quel Fornitore).
+
+Comprende/è collegato a:
+
+* il [Listino del patto](#listino-del-patto) che include la scelta del GAS di specifici prodotti;
+* Giorno, ora e luogo predefiniti per la consegna;
+* La possibilità di inviare una mail alla chiusura;
+* Gli attributi necessari per la sospensione definitiva (cancellazione) o temporanea (ad es: vacanze);
+* il Documento;
+* l'importo minimo di un [Ordine](#ordine);
+* una modifica %, in positivo o negativo, sul prezzo base di ogni Prodotto in base agli accordi presi (che tenga conto, ad es., di fattori logistici e/o del volume di consumi del GAS);
+* quanti giorni prima della [Consegna](#consegna) bisogna chiudere l'[Ordine](#ordine);
+* vi sono associati i [referenti di patto](#il-ruolo-di-referente-del-patto);
+
+### Stock del patto
+
+Ref: [GASSupplierStock](https://github.com/befair/gasistafelice/blob/master-dj17/gasistafelice/gf/gas/models/base.py#L1446 "Il modello GASSupplierStock")
+
+**TODO: REFACTORING in PactStock**
+
+Descrive le specifiche modalità di fornitura di uno [Stock](#stock) di un determinato [Patto di solidarietà](#patto-di-solidarietà).
+
+Esso è sostanzialmente uno [Stock](#stock) modificato in base al Patto di solidarietà tra il GAS e il Fornitore.
+
+È caratterizzato dai seguenti attributi:
+
+* [Stock](#stock): chiaramente lo stock a cui si riferisce;
+* prezzo: praticato dal Fornitore al GAS. Esso comprende le eventuali modifiche apportate al prezzo base dal Patto di solidarietà;
+* stato di abilitazione: abilitato o no;
+* [opzionale] quantità minima ordinabile dal gasista: può essere impostata dal [referente del patto](il-ruolo-di-referente-del-patto) ad un sottomultiplo di quella stabilita dal Fornitore, per venire incontro alle esigenze dei Gasisti;
+* [opzionale] step di incremento ordinabile dal Gasista: può essere impostato dal [referente del patto](il-ruolo-di-referente-del-patto) ad un sottomultiplo di quello stabilito dal Fornitore, per venire incontro alle esigenze dei Gasisti)
+
+### Listino del patto
+
+Ref: non è un modello nel Sistema, ma un aggregato di [Stock del patto](#stock-del-patto);
+
+L'insieme degli Stock che un GAS è interessato ad acquistare da un determinato Fornitore; è, per definizione, un sottoinsieme del [Listino fornitore](#listino-fornitore) del Fornitore corrispondente.
+
+Riceve le modifiche a cascata dal Listino fornitore.
+Le modifiche fatte su di esso (disponibilità dei prodotti) si ripercuotono sul [Listino degli ordini](#listino-di-ordine).
+
+## Area ordini TODO TODOC
+
 ### !OrdineFornitore ###
 Un ordine che il GAS invia ad un Fornitore; è caratterizzato da:
 * [[#Fornitore|Fornitore]]
@@ -340,23 +378,25 @@ Un !OrdineGasistaPeriodico è caratterizzato dai seguenti attributi:
 [#1 a] Un !OrdineGasista ha senso solo nel contesto di un !OrdineFornitore [[BR]]
 [#2 b] A seconda del GAS, la transizione !OrdineGasista NON_CONFERMATO -> CONFERMATO può avvenire automaticamente e in modo trasparente all'utente.[[BR]]
 ----
-## Logistica ##
-### Consegna ###
+
+## Area logistica TODO TODOC
+
+### Consegna
 Indica il processo in cui un Fornitore consegna ad un GAS la merce relativa ad un [[#OrdineFornitore|OrdineFornitore]].
-### !PuntoDiConsegna ###
+### !PuntoDiConsegna
 È il luogo dove avviene una [[#Consegna|Consegna]].
-### !AppuntamentoDiConsegna ###
+### !AppuntamentoDiConsegna
 Indica le modalità con cui avviene materialmente una [[#Consegna|Consegna]].  Uno stesso !AppuntamentoDiConsegna può essere relativo a più di un !OrdineFornitore (e spesso lo è).
 È caratterizzato da:
 * [[#PuntoDiConsegna|PuntoDiConsegna]]
 * data
 * ora
 * [[#ReferenteConsegna|ReferenteConsegna]]
-### Ritiro ###
+### Ritiro
 Indica il processo in cui i Gasisti ritirano i Prodotti consegnati dai Fornitori, assistiti dal [[#Turnista|Turnista]].
-### !PuntoDiRitiro ###
+### !PuntoDiRitiro
 È il luogo dove avviene un [[#Ritiro|Ritiro]]; non coincide necessariamente con il !PuntoDiConsegna relativo allo stesso !OrdineFornitore.
-### !AppuntamentoDiRitiro ###
+### !AppuntamentoDiRitiro
 Indica le modalità con cui avviene materialmente un [[#Ritiro|Ritiro]]. In generale, uno stesso !AppuntamentoDiRitiro è relativo a più di un !OrdineFornitore.
 È caratterizzato da:
 * [[#PuntoDiRitiro|PuntoDiRitiro]]
@@ -364,39 +404,44 @@ Indica le modalità con cui avviene materialmente un [[#Ritiro|Ritiro]]. In gene
 * ora inizio
 * ora fine
 * [[#Turnista|Turnista]]/i
-### Partita ###
+### Partita
 La merce ritirabile dai Gasisti in occasione di un !AppuntamentoDiRitiro.
-### Sede ###
+### Sede
 Luogo in cui è ubicata la sede del GAS.
-### Magazzino ###
+### Magazzino
 Insieme dei Prodotti ordinati da un GAS per i quali non è pianificato il ritiro da parte di un Gasista specifico; è una lista di Giacenze.  Il Magazzino è il risultato di eventi del tipo:
 * nell'ambito di un'!OrdineFornitore, il GAS ordina più Prodotti di quelli effettivamente richiesti dai Gasisti allo scopo di creare delle scorte
 * nel corso di un appuntamento di Ritiro, un Gasista non preleva alcuni degli !OrdiniGasista che aveva effettuato
-### Giacenza ###
+### Giacenza
 Uno stock di Prodotti omogenenei, nella tipologia e nel prezzo, conservati nel Magazzino di un GAS. È caratterizzato dai seguenti attributi:
 * Prodotto
 * unità di Prodotto in giacenza
 * prezzo (quello che il GAS ha effettivamente pagato al Fornitore per procurarsi i Prodotti presenti nella Giacenza)
-### Prelievo ###
+### Prelievo
 È l'atto con cui un Gasista preleva (una parte di) una Giacenza di Magazzino. È caratterizzato dai seguenti attributi:
 * Gasista che effettua il prelievo
 * data/ora del prelievo
 * Giacenza da cui il Prelievo attinge
 * unità di Prodotto prelevate
 Un Prelievo può essere eseguito durante un normale Ritiro (ad es., se un Gasista ritira più di quello che ha ordinato) oppure in un altro momento (ad es. durante la riunione di un GAS).
-----
-## Contabilità ##
-### Prepagato ###
-Gestione di cassa al livello di GAS. La cassa paga i Fornitore e altre spese. I gasisti ricaricano il loro Conto Gasista che finisce in Cassa.
-> Non mi sembra un concetto da introdurre a livello di Vocabolario, in quanto descrive un processo che andrebbe inserito nella opportuna pagina di Analisi
-### Cassa ###
+
+## Area conti TODO TODOC
+
+### Cassa
+
 Conto fisico del GAS.
-### Ricarica ###
+
+### Ricarica
+
 Il Gasista da soldi al GAS per alimentare il !ContoGasista.
-### Movimento totale del Sistema ###
+
+### Movimento totale del Sistema
+
 Visualizza il totale delle transazioni economiche mensili ed annuali di un DES eventualmente diviso per categoria merceologica --> Statistiche
 > Non mi sembra un concetto da introdurre a livello di Vocabolario, in quanto descrive un processo che andrebbe inserito nella opportuna pagina di Analisi
-### Conto ###
+
+### Conto
+
 Rappresenta la disponibilità economica (positiva o negativa) di uno dei Soggetti coinvolti nella gestione contabile di un GAS (nel linguaggio della contabilità a partita doppia, è un "account" o centro di costo/ricavo). È caratterizzato dai seguenti attributi:
 * Soggetto titolare
 * lista delle Transazioni associate
@@ -405,40 +450,97 @@ All'interno di un GAS, i Conti che entrano in gioco sono di 3 tipi:
 * [[#ContoGasista|ContoGasista]]
 * [[#ContoGAS|ContoGAS]]
 * [[#ContoFornitore|ContoFornitore]]
-### !ContoGasista ###
+
+### !ContoGasista
+
 Ogni Gasista ha il proprio; descrive il bilancio economico del Gasista nei confronti del GAS.
-### ContoGAS ###
+Gestione di cassa al livello di GAS. La cassa paga i Fornitore e altre spese. I gasisti ricaricano il loro Conto Gasista che finisce in Cassa.
+
+### ContoGAS
+
 È unico per ogni GAS; in sostanza, rappresenta la Cassa del GAS. Il saldo del Conto GAS è l'attuale disponibilità di cassa per il GAS.
-### !ContoFornitore ###
+
+### ContoFornitore
+
 Ogni Fornitore che fornisce un GAS ha il proprio; descrive il bilancio economico del GAS nei confronti del Fornitore.
-### Transazione ###
+
+### Transazione
+
 Movimento economico (flusso) tra due Conti. dei quali almeno uno gestito dal GAS. È caratterizzato dai seguenti attributi:
 * Conto di partenza (se applicabile)
 * Conto di arrivo (se applicabile)
 * data/ora in cui la Transazione è stata eseguita
 * causale (perché la Transazione è stata eseguita)
 * importo economico (con segno) della Transazione
+
 ### Conto Totale Gas ###
 Ad uso del  Contabile.
-> Non ho ben capito a cosa serve
+
 ----
-# Ruoli #
+
+## Area ruoli
+
 A livello implementativo e concettuale, la differenza tra Ruolo ed Entità è la seguente:
 
 * un Entità è un'unità informativa all'interno del programma; può essere implementata come una classe, un oggetto, una tabella/record in un database,..
 * un Ruolo è semplicemente un insieme di permessi operativi (i quali definiscono le azioni che un soggetto dotato di quel ruolo può eseguire all'interno del Sistema)
 
-Alcuni ruoli da prevedere all'interno del Sistema:
+Di seguito sono descritti i ruoli previsti nel sistema:
 
-* Amministratore
-* Gasista
-* Contabile
- * !ReferenteFornitore
-  * !ReferenteRetina
-   * ReferenteGAS
-    * Turnista
+### Il ruolo di Fornitore
 
-    # Note #
-    [1] * '''CF/CX''': il numero di confezioni (CF) per Cartone (CX) può essere espresso nei termini della  quantità minima/step di incremento ordinabile
+**SUPPLIER**
 
+È l'utente che gestisce la risorsa [Fornitore](#fornitore) in tutti i suoi aspetti dalla scheda anagrafica, al [Listino fornitore](#listino-fornitore), ad alcune opzioni di configurazione del Fornitore.
+
+### Il ruolo di Referente informatico
+
+**REFERRER_TECH**
+
+È il Gasista che si occupa dell'amministrazione informatica dell'[Installazione](#installazione), limitatamente agli aspetti relativi al GAS di appartenenza.
+
+### Il ruolo di Referente del patto
+
+**REFERRER_SUPPLIER**
+
+Funge da interfaccia tra un GAS e uno specifico Fornitore ed è responsabile del relativo !PattoDiSolidarietà
+
+### Il ruolo di Referente dell'ordine
+
+Gestisce un Ordine a livello di GAS
+È scelto all'apertura di ogni ordine e modificabile fino alla chiusura tra i REFERRER_SUPPLIER e REFERRER_TECH
+
+### Il ruolo di Referente dell'ordine di retina
+
+Funge da interfaccia per un dato ordine tra una Retina di GAS ed un Fornitore in comune a tutti i GAS membri della Retina.
+In Gasista Felice è il referente dell'ordine del GAS che ha aperto l'ordine di Retina.
+
+### Il ruolo di Referente contabile
+
+**REFERRER_CASH**
+
+Gestisce i conti dei gasisti, dei GAS, e dei patti. Effettua le ricariche degli utenti nel GAS, il pagamento delle quote associative, il pagamento ai fornitori, redige il bilancio del GAS di fine anno.
+
+### Referente di consegna
+
+(NON USATO DAI GAS PER ORA, PARZ. IMPLEMENTATO, non rivista documentazione)
+
+Un Gasista che si prende in carico gli aspetti logistici relativi ad un dato [[#AppuntamentoDiConsegna|AppuntamentoDiConsegna]], che possono comprendere:
+* verifica della merce effettivamente consegnata dal/i Fornitore/i
+* archiviazione dei DDT
+* pagamento delle fatture
+* trasporto della merce al [[#PuntoDiRitiro|PuntoDiRitiro]] (se diverso dal [[#PuntoDiConsegna|PuntoDiConsegna]])
+* ..
+
+
+### Turnista
+
+(NON USATO DAI GAS PER ORA, PARZ. IMPLEMENTATO, non rivista documentazione)
+
+Un Gasista che si prende in carico gli aspetti logistici relativi ad un dato [[#AppuntamentoDiRitiro|AppuntamentoDiRitiro]], che possono comprendere:
+* gestione della corretta distribuzione della merce nel [[#PuntoDiRitiro|PuntoDiRitiro]]
+* riscossione dei pagamenti da parte dei Gasisti
+* rendicontazione dei Prodotti ritirati e di quelli non ritirati
+* aggiornamento del [[#Magazzino|Magazzino]]
+* ..
 
